@@ -1,1 +1,1 @@
-# salud
+# proyecto_prediccion_diabetes_en_mujeres
