@@ -1,0 +1,85 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffeef5; /* Fondo rosado claro */
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo del encabezado */
+header {
+  background-color: #f78fb3; /* Rosado fuerte */
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+/* Estilo principal del formulario */
+main {
+  max-width: 600px;
+  margin: 30px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #e4b2c2;
+}
+
+/* Estilo del subtítulo */
+h2 {
+  color: #cc4c7c; /* Rosado oscuro */
+}
+
+/* Estilo de las etiquetas */
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Estilo para los campos de entrada */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Estilo para el texto pequeño */
+small {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Estilo del botón */
+button {
+  margin-top: 25px;
+  width: 100%;
+  padding: 12px;
+  background-color: #f78fb3; /* Rosado fuerte */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Estilo para el hover del botón */
+button:hover {
+  background-color: #e26d94;
+}
+
+/* Estilo del resultado */
+.resultado {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #d24d7d; /* Rosado oscuro */
+}
+
+/* Estilo del aviso */
+.aviso {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
