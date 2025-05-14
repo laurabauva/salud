@@ -71,5 +71,14 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+
+    // Obtener valores del formulario
+    const glucosa = parseFloat(document.getElementById('glucose').value);
+    const peso = parseFloat(document.getElementById('peso').value);
+    const altura = parseFloat(document.getElementById('altura').value);
+    const edad = parseFloat(document.getElementById('age').value);
+    const dpf = parseFloat(document.getElementById('dpf').value);
+    const skin = parseFloat(document.getElementById('skinthickness').value) || 0;
+
 </body>
 </html>
