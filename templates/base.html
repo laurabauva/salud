@@ -13,6 +13,48 @@
     <p>Proyecto académico - Ingeniería de Sistemas</p>
   </header>
 
-  
+    <main>
+    <h2>Ingresa tus datos</h2>
+    <form id="formulario">
+      <!-- Campos del formulario -->
+      <label for="pregnancies">Número de embarazos:</label>
+      <input type="number" id="pregnancies" required>
+
+      <label for="glucose">Nivel de glucosa:</label>
+      <input type="number" id="glucose" required>
+
+      <label for="bloodpressure">Presión arterial (mm Hg):</label>
+      <input type="number" id="bloodpressure" required>
+
+      <label for="skinthickness">
+        Espesor del pliegue cutáneo (mm) <span style="font-weight: normal;">(opcional)</span>:
+      </label>
+      <input type="number" id="skinthickness" placeholder="Ej: 30">
+      <small>Si no conoces este dato, puedes dejarlo vacío. <strong>Esto puede afectar la precisión del resultado.</strong></small>
+
+      <label for="insulin">Nivel de insulina (mu U/ml):</label>
+      <input type="number" id="insulin" required>
+
+      <label for="peso">Peso (kg):</label>
+      <input type="number" id="peso" required>
+
+      <label for="altura">Altura (m):</label>
+      <input type="number" id="altura" step="0.01" required>
+
+      <label for="dpf">Historial familiar de diabetes:</label>
+      <select id="dpf" required>
+        <option value="">-- Selecciona una opción --</option>
+        <option value="0.1">Ningún familiar con diabetes</option>
+        <option value="0.4">Uno o dos familiares</option>
+        <option value="0.8">Varios familiares</option>
+      </select>
+      <small>Este valor representa el riesgo genético (DPF).</small>
+
+      <label for="age">Edad (años):</label>
+      <input type="number" id="age" required>
+
+      <button type="submit">Predecir Riesgo</button>
+    </form>
+
 </body>
 </html>
