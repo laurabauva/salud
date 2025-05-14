@@ -82,13 +82,20 @@
 
     // Calcular BMI (índice de masa corporal)
     const bmi = peso / (altura * altura);
-    
-    // Lógica de predicción 
+
+    // Lógica de predicción
     let riesgo = 'bajo';
     if (glucosa > 130 || bmi > 30 || edad > 35 || dpf >= 0.8) {
       riesgo = 'ALTO';
     } else if (glucosa > 100 || bmi > 27 || dpf >= 0.4) {
       riesgo = 'moderado';
     }
+
+    resultado.style.display = 'block';
+    resultado.textContent = `Resultado: Riesgo ${riesgo} de diabetes gestacional.`;
+
+    aviso.style.display = 'block';
+  });
+</script>
 </body>
 </html>
