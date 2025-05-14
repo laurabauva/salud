@@ -1,13 +1,13 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #ffeef5; /* Fondo rosado claro */
+  background-color: #ffeef5; 
   margin: 0;
   padding: 0;
 }
 
 /* Estilo del encabezado */
 header {
-  background-color: #f78fb3; /* Rosado fuerte */
+  background-color: #f78fb3; 
   color: white;
   text-align: center;
   padding: 25px;
@@ -25,7 +25,7 @@ main {
 
 /* Estilo del subtítulo */
 h2 {
-  color: #cc4c7c; /* Rosado oscuro */
+  color: #cc4c7c; 
 }
 
 /* Estilo de las etiquetas */
@@ -56,7 +56,7 @@ button {
   margin-top: 25px;
   width: 100%;
   padding: 12px;
-  background-color: #f78fb3; /* Rosado fuerte */
+  background-color: #f78fb3; 
   color: white;
   border: none;
   border-radius: 6px;
@@ -74,7 +74,7 @@ button:hover {
   margin-top: 20px;
   font-size: 18px;
   font-weight: bold;
-  color: #d24d7d; /* Rosado oscuro */
+  color: #d24d7d;
 }
 
 /* Estilo del aviso */
