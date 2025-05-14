@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Predicción de Diabetes Gestacional</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Predicción de Diabetes Gestacional</h1>
+    <p>Proyecto académico - Ingeniería de Sistemas</p>
+  </header>
+
+    <main>
+    <h2>Ingresa tus datos</h2>
+    <form id="formulario">
+      <!-- Campos del formulario -->
+      <label for="pregnancies">Número de embarazos:</label>
+      <input type="number" id="pregnancies" required>
+
+      <label for="glucose">Nivel de glucosa:</label>
+      <input type="number" id="glucose" required>
+
+      <label for="bloodpressure">Presión arterial (mm Hg):</label>
+      <input type="number" id="bloodpressure" required>
+
+      <label for="skinthickness">
+        Espesor del pliegue cutáneo (mm) <span style="font-weight: normal;">(opcional)</span>:
+      </label>
+      <input type="number" id="skinthickness" placeholder="Ej: 30">
+      <small>Si no conoces este dato, puedes dejarlo vacío. <strong>Esto puede afectar la precisión del resultado.</strong></small>
+
+      <label for="insulin">Nivel de insulina (mu U/ml):</label>
+      <input type="number" id="insulin" required>
+
+      <label for="peso">Peso (kg):</label>
+      <input type="number" id="peso" required>
+
+      <label for="altura">Altura (m):</label>
+      <input type="number" id="altura" step="0.01" required>
+
+      <label for="dpf">Historial familiar de diabetes:</label>
+      <select id="dpf" required>
+        <option value="">-- Selecciona una opción --</option>
+        <option value="0.1">Ningún familiar con diabetes</option>
+        <option value="0.4">Uno o dos familiares</option>
+        <option value="0.8">Varios familiares</option>
+      </select>
+      <small>Este valor representa el riesgo genético (DPF).</small>
+
+      <label for="age">Edad (años):</label>
+      <input type="number" id="age" required>
+
+      <button type="submit">Predecir Riesgo</button>
+    </form>
+    
+    <!-- Resultado de la predicción -->
+    <div class="resultado" id="resultado" style="display: none;"></div>
+ <!-- Aviso -->
+  <div class="aviso" id="aviso" style="display: none;">
+    Nota: Esta es una simulación académica. Consulta a un médico para un diagnóstico real.
+  </div>
+</main>
+
+<script>
+  const form = document.getElementById('formulario');
+  const resultado = document.getElementById('resultado');
+  const aviso = document.getElementById('aviso');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Obtener valores del formulario
+    const glucosa = parseFloat(document.getElementById('glucose').value);
+    const peso = parseFloat(document.getElementById('peso').value);
+    const altura = parseFloat(document.getElementById('altura').value);
+    const edad = parseFloat(document.getElementById('age').value);
+    const dpf = parseFloat(document.getElementById('dpf').value);
+    const skin = parseFloat(document.getElementById('skinthickness').value) || 0;
+
+    // Calcular BMI (índice de masa corporal)
+    const bmi = peso / (altura * altura);
+
+    // Lógica de predicción
+    let riesgo = 'bajo';
+    if (glucosa > 130 || bmi > 30 || edad > 35 || dpf >= 0.8) {
+      riesgo = 'ALTO';
+    } else if (glucosa > 100 || bmi > 27 || dpf >= 0.4) {
+      riesgo = 'moderado';
+    }
+
+    resultado.style.display = 'block';
+    resultado.textContent = `Resultado: Riesgo ${riesgo} de diabetes gestacional.`;
+
+    aviso.style.display = 'block';
+  });
+</script>
+</body>
+</html>
