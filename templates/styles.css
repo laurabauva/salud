@@ -83,3 +83,46 @@ button:hover {
   font-size: 14px;
   color: #555;
 }
+
+ 
+
+body {
+  background-color: #ffe6f0; 
+  font-family: Arial, sans-serif;
+  color: #4d004d;
+
+h1, h2 {
+  color: #ffffff; 
+}
+
+.btn-primary {
+  background-color: #ff66b2;
+  border-color: #ff66b2;
+}
+
+.btn-primary:hover {
+  background-color: #ff3385;
+  border-color: #ff3385;
+}
+
+.accordion-button {
+  background-color: #ffd6e8;
+  color: #800040;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #ffb3d9;
+  color: #660033;
+}
+
+.accordion-body {
+  background-color: #fff0f5;
+}
+
+.accordion-item {
+  border: 1px solid #ffb3d9;
+}
+
+a {
+  text-decoration: none;
+}
