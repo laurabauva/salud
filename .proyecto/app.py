@@ -8,13 +8,12 @@ import mysql.connector
 import os 
 from dotenv import load_dotenv 
 
-#cargar las varibales del .env
+# Cargar variables del archivo .env
 load_dotenv()
 app = Flask(__name__)
 
-
-#se hace la configuracion con el dataset
-db_config ={
+# Configuración de la conexión a la base de datos
+db_config = {
     "host": os.getenv("DB_HOST"),
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PASSWORD"),
@@ -22,47 +21,79 @@ db_config ={
     "port": os.getenv("DB_PORT")
 }
 
-#ruta de entrenamiento del modelo
-@app.route ('/train', methods = ['POST'])
+# Ruta para entrenar el modelo
+@app.route('/train', methods=['POST'])
 def entreno_modelo():
+    
     try:
-
-        #se hace la conexion con el dataset
+        # Conexión a la base de datos
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
-        #se carga los datos
+        # Cargar los datos de la tabla
         query = "SELECT * FROM diabetes"
         cursor.execute(query)
         data = cursor.fetchall()
 
-        #se traen los nombres de las columnas
-        columns =[desc [0] for desc in cursor.description]
-        
+        # Obtener nombres de las columnas
+        columns = [desc[0] for desc in cursor.description]
         df = pd.DataFrame(data, columns=columns)
+        print("Columnas del DataFrame:", df.columns)
+        print(df.head())
 
-        #separacion de etiquetas
-        print(df.columns)
 
+
+        # Separar características (X) y etiqueta (y)
         X = df.drop(columns=['Resultado'])
-        y = df['Resulltado']
+        y = df['Resultado']
 
-        #división de entrenamiento y la prueba
-        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 42)
+        # División de entrenamiento y prueba
+        x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        #se entrena el modelo
-        model = LogisticRegression(max_iter= 500)
+        # Entrenar modelo
+        model = LogisticRegression(max_iter=500)
         model.fit(x_train, y_train)
 
-        #se guarda el modelo ya entrenado
+        # Asegurarse de que la carpeta 'model' exista
+        os.makedirs('model', exist_ok=True)
+
+        # Guardar el modelo entrenado
         model_path = os.path.join('model', 'modelo_diabetes.pkl')
         joblib.dump(model, model_path)
 
-        #se evalua el modelo
-        y_pred = model .predict(x_test)
+        # Evaluar el modelo
+        y_pred = model.predict(x_test)
         accuracy = accuracy_score(y_test, y_pred)
 
-        return jsonify ({'status': 'modelo entrenado', 'accuracy': accuracy})
+        return jsonify({'status': 'Modelo entrenado', 'accuracy': accuracy})
     
     except Exception as e:
-        return jsonify ({'status': 'Error', 'message': str(e)})
+        return jsonify({'status': 'Error', 'message': str(e)})
+
+# Ruta para hacer predicciones
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        # Cargar modelo entrenado
+        model_path = os.path.join('model', 'modelo_diabetes.pkl')
+        model = joblib.load(model_path)
+
+        # Obtener los datos en el orden correcto
+        columnas = [
+            "Embarazos", "Glucosa", "PresionSanguinea", "PliegueCutaneo",
+            "Insulina", "IMC", "AntecedentesDiabetes", "Edad"
+        ]
+
+        data = [float(request.form[col]) for col in columnas]
+
+        # Hacer predicción
+        prediction = model.predict([data])
+        result = 'Diabética' if prediction[0] == 1 else 'No Diabética'
+
+        return jsonify({'prediction': result})
+
+    except Exception as e:
+        return jsonify({'status': 'Error', 'message': str(e)})
+
+if __name__ == '__main__':
+    app.run(debug=True)
