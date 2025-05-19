@@ -1,0 +1,74 @@
+body {
+  position: relative;
+}
+/* Estilo del encabezado */
+header {
+  background-color: #f78fb3; 
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+.scrollspy-example {
+  height: 300px;
+  overflow-y: scroll;
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  background-color: #f8f9fa;
+}
+
+.text-pink {
+  color: #e83e8c;
+}
+
+body {
+  background-color: #ffe6f0; 
+}
+
+.etapa {
+  background-color: #fff0f5; 
+  border: 1px solid #f8c8dc;
+}
+
+.btn-primary {
+  background-color: #e94a87;
+  border-color: #e94a87;
+}
+
+.btn-primary:hover {
+  background-color: #e94a87;
+  border-color: #e94a87;
+}
+
+
+
+/* Colores personalizados */
+:root {
+  --color-primary: #e94a87;  /* Color rosa */
+}
+
+/* Personalización de elementos Bootstrap */
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background-color: #e94e87;
+  border-color: #e94a87;
+}
+
+.list-group-item.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.text-pink {
+  color: var(--color-primary);
+}
+
+/* Estilos adicionales */
+.etapa {
+  background-color: #FFF9FB;
+}
