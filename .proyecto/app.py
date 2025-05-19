@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify 
+from flask import Flask, request, jsonify, render_template
 import pandas as pd
 from sklearn.model_selection import train_test_split 
 from sklearn.linear_model import LogisticRegression 
@@ -10,90 +10,67 @@ from dotenv import load_dotenv
 
 # Cargar variables del archivo .env
 load_dotenv()
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
-# Configuración de la conexión a la base de datos
+# Configuración de la base de datos
 db_config = {
-    "host": os.getenv("DB_HOST"),
-    "user": os.getenv("DB_USER"),
-    "password": os.getenv("DB_PASSWORD"),
-    "database": os.getenv("DB_NAME"),
-    "port": os.getenv("DB_PORT")
+    "host": os.getenv("DB_HOST", "localhost"),
+    "user": os.getenv("DB_USER", "root"),
+    "password": os.getenv("DB_PASSWORD", ""),
+    "database": os.getenv("DB_NAME", "dataset_diabetes"),
+    "port": int(os.getenv("DB_PORT", 3306))
 }
 
-# Ruta para entrenar el modelo
-@app.route('/train', methods=['POST'])
-def entreno_modelo():
-    
-    try:
-        # Conexión a la base de datos
-        conn = mysql.connector.connect(**db_config)
-        cursor = conn.cursor()
+# ... (mantén todas las funciones anteriores igual hasta las rutas)
 
-        # Cargar los datos de la tabla
-        query = "SELECT * FROM diabetes"
-        cursor.execute(query)
-        data = cursor.fetchall()
+# Rutas corregidas
+@app.route('/')
+def inicio():
+    return render_template('etapa1.html')
 
-        # Obtener nombres de las columnas
-        columns = [desc[0] for desc in cursor.description]
-        df = pd.DataFrame(data, columns=columns)
-        print("Columnas del DataFrame:", df.columns)
-        print(df.head())
+@app.route('/etapa1')
+def etapa1():
+    return render_template('etapa1.html')
 
+@app.route('/etapa2')
+def etapa2():
+    return render_template('etapa2.html')
+
+@app.route('/prediccion')
+def prediccion():
+    return render_template('base.html')
 
 
-        # Separar características (X) y etiqueta (y)
-        X = df.drop(columns=['Resultado'])
-        y = df['Resultado']
-
-        # División de entrenamiento y prueba
-        x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-        # Entrenar modelo
-        model = LogisticRegression(max_iter=500)
-        model.fit(x_train, y_train)
-
-        # Asegurarse de que la carpeta 'model' exista
-        os.makedirs('model', exist_ok=True)
-
-        # Guardar el modelo entrenado
-        model_path = os.path.join('model', 'modelo_diabetes.pkl')
-        joblib.dump(model, model_path)
-
-        # Evaluar el modelo
-        y_pred = model.predict(x_test)
-        accuracy = accuracy_score(y_test, y_pred)
-
-        return jsonify({'status': 'Modelo entrenado', 'accuracy': accuracy})
-    
-    except Exception as e:
-        return jsonify({'status': 'Error', 'message': str(e)})
-
-# Ruta para hacer predicciones
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Cargar modelo entrenado
         model_path = os.path.join('model', 'modelo_diabetes.pkl')
+        if not os.path.exists(model_path):
+            return render_template('etapa1.html', resultado="Error: Modelo no encontrado. Entrene el modelo primero.")
+            
         model = joblib.load(model_path)
 
-        # Obtener los datos en el orden correcto
-        columnas = [
-            "Embarazos", "Glucosa", "PresionSanguinea", "PliegueCutaneo",
-            "Insulina", "IMC", "AntecedentesDiabetes", "Edad"
-        ]
+        input_data = [[
+            float(request.form.get("embarazos", 0)),
+            float(request.form.get("glucosa", 0)),
+            float(request.form.get("presion", 0)),
+            float(request.form.get("grosor_piel", 0)),
+            float(request.form.get("insulina", 0)),
+            float(request.form.get("imc", 0)),
+            float(request.form.get("dpf", 0)),
+            float(request.form.get("edad", 0))
+        ]]
 
-        data = [float(request.form[col]) for col in columnas]
+        prediction = model.predict(input_data)[0]
+        resultado = 'Diabético' if prediction == 1 else 'No Diabético'
 
-        # Hacer predicción
-        prediction = model.predict([data])
-        result = 'Diabética' if prediction[0] == 1 else 'No Diabética'
-
-        return jsonify({'prediction': result})
+        return render_template('etapa1.html', 
+                            resultado=resultado,
+                            probabilidad=float(model.predict_proba(input_data)[0][1]))
 
     except Exception as e:
-        return jsonify({'status': 'Error', 'message': str(e)})
+        return render_template('etapa1.html', 
+                            resultado=f"Error: {str(e)}")
 
 if __name__ == '__main__':
     app.run(debug=True)
