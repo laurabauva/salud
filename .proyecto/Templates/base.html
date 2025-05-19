@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Diabetes Gestacional</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Predicción de Riesgo de Diabetes Gestacional en Mujeres</h1>
+            <p class="subtitle">Proyecto académico - Machine learning</p>
+        </header>
+
+        <form method="POST" action="/predict" class="form-container">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="embarazos">Número de embarazos:</label>
+                    <input type="number" id="embarazos" name="embarazos" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="glucosa">Nivel de glucosa (mg/dL):</label>
+                    <input type="number" id="glucosa" name="glucosa" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="presion">Presión arterial (mm Hg):</label>
+                    <input type="number" id="presion" name="presion" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="piel">Espesor del pliegue cutáneo (mm):</label>
+                    <input type="number" id="piel" name="pliegue" required>
+                    <p class="input-hint">Ej: 30</p>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="insulina">Nivel de insulina (μU/mL):</label>
+                    <input type="number" id="insulina" name="insulina" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="imc">Índice de masa corporal (IMC):</label>
+                    <input type="number" id="imc" step="0.1" name="imc" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dpf">Función genealógica (DPF):</label>
+                    <input type="number" id="dpf" step="0.001" name="dpf" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edad">Edad (años):</label>
+                    <input type="number" id="edad" name="edad" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Calcular Riesgo</button>
+        </form>
+
+        {% if resultado %}
+        <div class="result-container {% if 'Alto' in resultado %}result-diabetic{% else %}result-not-diabetic{% endif %}">
+            <h2>Resultado de la Evaluación</h2>
+            <p class="result-text">{{ resultado }}</p>
+            <p class="probability">Probabilidad: {{ "%.2f"|format(probabilidad * 100) }}%</p>
+            
+            {% if chart_image %}
+            <div class="chart-container">
+                <h3>Análisis de Riesgo</h3>
+                <img src="data:image/png;base64,{{ chart_image }}" alt="Gráfico de riesgo">
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <footer class="disclaimer">
+            <p>Nota: Esta es una simulación académica. Consulta a un médico para un diagnóstico real.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const inputs = document.querySelectorAll('input[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '#3498db';
+                }
+            });
+            
+            if (!isValid) {
+                alert('Por favor, complete todos los campos requeridos.');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

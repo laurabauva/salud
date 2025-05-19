@@ -1,0 +1,116 @@
+
+body {
+  position: relative;
+  background-color: #ffe6f0; /* Fondo general rosa claro */
+}
+
+/* Estilo del encabezado */
+header {
+  background-color: #f78fb3; /* Fondo del encabezado rosa más fuerte */
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+.scrollspy-example {
+  height: 300px;
+  overflow-y: scroll;
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  background-color: #f8f9fa;
+}
+
+.text-pink {
+  color: #e83e8c;
+}
+
+.etapa {
+  background-color: #fff0f5; /* Fondo de los contenedores de etapa rosa muy claro */
+  border: 1px solid #f8c8dc; /* Borde de los contenedores de etapa rosa claro */
+  margin-bottom: 10px; /* Espacio entre los contenedores de etapa */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 15px; /* Espacio interno */
+}
+
+.accordion-button {
+  background-color: #fde0e7 !important; /* Fondo de los botones del acordeón rosa muy claro */
+  color: #333 !important; /* Color del texto de los botones del acordeón */
+  border: 1px solid #f8c8dc !important; /* Borde de los botones del acordeón */
+  border-radius: 5px !important; /* Bordes redondeados de los botones del acordeón */
+  margin-bottom: 5px; /* Espacio entre los botones del acordeón */
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #f78fb3 !important; /* Fondo del botón activo del acordeón rosa fuerte */
+  color: white !important; /* Color del texto del botón activo del acordeón */
+}
+
+.accordion-body {
+  background-color: white; /* Fondo del cuerpo del acordeón blanco */
+  border: 1px solid #f8c8dc; /* Borde del cuerpo del acordeón */
+  border-radius: 5px; /* Bordes redondeados del cuerpo del acordeón */
+  padding: 15px;
+}
+
+.btn-primary {
+  background-color: #e94a87; /* Fondo del botón primario rosa */
+  border-color: #e94a87; /* Borde del botón primario rosa */
+  color: white; /* Color del texto del botón primario blanco */
+  border-radius: 5px; /* Bordes redondeados del botón primario */
+  padding: 10px 20px; /* Espacio interno del botón primario */
+}
+
+.btn-primary:hover {
+  background-color: #d13f75; /* Fondo del botón primario al pasar el ratón rosa más oscuro */
+  border-color: #d13f75; /* Borde del botón primario al pasar el ratón rosa más oscuro */
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Fondo del botón secundario gris */
+  border-color: #6c757d; /* Borde del botón secundario gris */
+  color: white; /* Color del texto del botón secundario blanco */
+  border-radius: 5px; /* Bordes redondeados del botón secundario */
+  padding: 10px 20px; /* Espacio interno del botón secundario */
+  margin-right: 10px; /* Espacio a la derecha del botón secundario */
+}
+
+.btn-secondary:hover {
+  background-color: #545b62; /* Fondo del botón secundario al pasar el ratón gris más oscuro */
+  border-color: #545b62; /* Borde del botón secundario al pasar el ratón gris más oscuro */
+}
+
+.btn-prev.btn-disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.navigation-buttons {
+  margin-top: 20px; /* Espacio superior para los botones de navegación */
+  text-align: right; /* Alineación de los botones a la derecha */
+}
+
+/* Colores personalizados */
+:root {
+  --color-primary: #e94a87; /* Color rosa primario */
+}
+
+/* Personalización de elementos Bootstrap (redundante con las reglas anteriores, pero se mantiene) */
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background-color: #e94e87;
+  border-color: #e94a87;
+}
+
+.list-group-item.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.text-pink {
+  color: var(--color-primary);
+}
