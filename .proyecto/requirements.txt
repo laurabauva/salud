@@ -1,7 +1,0 @@
-Flask
-pandas
-scikit-learn
-joblib
-python-dotenv
-base04==1.0.0
-gunicorn
