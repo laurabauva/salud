@@ -15,7 +15,7 @@ from io import BytesIO
 
 # Cargar variables del archivo .env
 load_dotenv()
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='template')
 
 app.config["DEBUG"] = True
 app.config["ENV"] = "development"
