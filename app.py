@@ -4,7 +4,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression 
 from sklearn.metrics import accuracy_score 
 import joblib 
-import mysql.connector 
 import os 
 from dotenv import load_dotenv 
 import matplotlib.pyplot as plt
@@ -22,14 +21,7 @@ app.config["DEBUG"] = True
 app.config["ENV"] = "development"
 
 
-# Configuración de la base de datos
-db_config = {
-    "host": os.getenv("DB_HOST", "localhost"),
-    "user": os.getenv("DB_USER", "root"),
-    "password": os.getenv("DB_PASSWORD", ""),
-    "database": os.getenv("DB_NAME", "dataset_diabetes"),
-    "port": int(os.getenv("DB_PORT", 3306))
-}
+
 
 def create_risk_chart(patient_data, probabilidad):
     """Crea una gráfica de riesgo mejorada considerando múltiples factores"""
